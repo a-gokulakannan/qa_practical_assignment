@@ -98,7 +98,7 @@ describe('API Automation Requirements - Part 1', () => {
       });
     });
 
-    it('should validate status = 200', () => {
+    it('should validate status = 201', () => {
       const newUser = {
         firstName: 'John',
         lastName: 'Doe',
