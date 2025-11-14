@@ -1,0 +1,11 @@
+{
+  "username": "gokul",
+  "password": "Test@123",
+  "role": "ESS",
+  "expectedMenus": {
+    "admin": false,
+    "userManagement": false
+  },
+  "description": "Non-admin user (ESS - Employee Self Service) for role-based access testing"
+}
+

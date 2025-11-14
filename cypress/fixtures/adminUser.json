@@ -1,0 +1,11 @@
+{
+  "username": "Admin",
+  "password": "admin123",
+  "role": "Admin",
+  "expectedMenus": {
+    "admin": true,
+    "userManagement": true
+  },
+  "description": "Admin user for role-based access testing"
+}
+
