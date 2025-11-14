@@ -1,4 +1,4 @@
-import { generateOTP, verifyOTP, login, registerUser, getUserInfo } from '../apis/auth';
+import { generateOTP, verifyOTP, login, registerUser, getUserInfo } from '../../apis/auth';
 
 describe('API Automation Requirements - Part 1', () => {
   describe('1. Generate OTP (simulate login)', () => {
