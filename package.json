@@ -1,0 +1,13 @@
+{
+  "name": "qa-practical-cypress",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --record=false",
+    "test": "npm run cypress:run"
+  },
+  "devDependencies": {
+    "cypress": "^12.0.0"
+  }
+}
