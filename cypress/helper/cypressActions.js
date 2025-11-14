@@ -29,6 +29,10 @@ class CypressActions {
     return this.getElement(element).click();
   }
 
+  clickElementForce(element) {
+    return this.getElement(element).click({ force: true });
+  }
+
   typeText(element, text) {
     return this.getElement(element).type(text);
   }

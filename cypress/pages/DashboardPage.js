@@ -77,19 +77,91 @@ class DashboardPage {
     // Click on Admin menu
     cypressActions.clickElement(this.adminMenuXpath);
     // Wait a moment for submenu to expand
-    cypressActions.wait(5000);
+    cypressActions.wait(1000);
     // Wait for User Management submenu to be visible
     cypressActions.waitForElement(this.userManagementMenuXpath);
     // Click on User Management
     cypressActions.clickElement(this.userManagementMenuXpath);
     // Wait a moment for submenu items to appear
-    cypressActions.wait(5000);
+    cypressActions.wait(1000);
     // Wait for Users option to be visible
     cypressActions.waitForElement(this.usersMenuXpath);
     // Click on Users
     cypressActions.clickElement(this.usersMenuXpath);
     // Wait for page to load
     cypressActions.wait(1000);
+  }
+
+  // Role-based access validation methods
+  /**
+   * Check if Admin menu is visible
+   * @returns {Cypress.Chainable} - Chainable for assertions
+   */
+  checkAdminMenuVisible() {
+    return cypressActions.getElement(this.adminMenuXpath).should('be.visible');
+  }
+
+  /**
+   * Check if Admin menu is NOT visible
+   * @returns {Cypress.Chainable} - Chainable for assertions
+   */
+  checkAdminMenuNotVisible() {
+    return cypressActions.getElement(this.adminMenuXpath).should('not.exist');
+  }
+
+  /**
+   * Check if User Management menu is visible
+   * This requires Admin menu to be clicked first
+   * @returns {Cypress.Chainable} - Chainable for assertions
+   */
+  checkUserManagementMenuVisible() {
+    // First click Admin menu to expand it
+    cypressActions.clickElement(this.adminMenuXpath);
+    cypressActions.wait(1000);
+    // Then check if User Management is visible
+    return cypressActions.getElement(this.userManagementMenuXpath).should('be.visible');
+  }
+
+  /**
+   * Check if User Management menu is NOT visible
+   * This checks without clicking Admin menu first
+   * @returns {Cypress.Chainable} - Chainable for assertions
+   */
+  checkUserManagementMenuNotVisible() {
+    // Check if Admin menu exists first
+    cypressActions.getElement(this.adminMenuXpath).then(($adminMenu) => {
+      if ($adminMenu.length > 0) {
+        // Admin menu exists, click it to check submenu
+        cypressActions.clickElement(this.adminMenuXpath);
+        cypressActions.wait(1000);
+        // Check if User Management is not visible
+        cypressActions.getElement(this.userManagementMenuXpath).should('not.exist');
+      } else {
+        // Admin menu doesn't exist, so User Management won't exist either
+        cypressActions.getElement(this.userManagementMenuXpath).should('not.exist');
+      }
+    });
+  }
+
+  /**
+   * Assert that Admin user can see User Management menu
+   */
+  assertAdminCanSeeUserManagement() {
+    // Verify Admin menu is visible
+    this.checkAdminMenuVisible();
+    // Verify User Management is accessible
+    this.checkUserManagementMenuVisible();
+  }
+
+  /**
+   * Assert that non-admin user cannot see User Management menu
+   * Non-admin users should not have access to the Admin button at all
+   */
+  assertNonAdminCannotSeeUserManagement() {
+    // Non-admin users should not see the Admin menu at all
+    cypressActions.getElement(this.adminMenuXpath).should('not.exist');
+    // Also verify User Management doesn't exist (as a safety check)
+    cypressActions.getElement(this.userManagementMenuXpath).should('not.exist');
   }
 }
 
